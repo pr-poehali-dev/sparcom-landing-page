@@ -53,13 +53,11 @@ const Index = () => {
               </div>
               
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                Культура бани.<br />
-                <span className="text-secondary">Без компромиссов.</span>
+                SPARCOM — культура бани и осознанных встреч
               </h1>
               
               <p className="text-xl md:text-2xl max-w-2xl leading-relaxed font-light opacity-95">
-                Организованная система банных встреч для осознанных гостей. 
-                Уважение, здоровье и качество — без алкоголя и хаоса.
+                Банный клуб и сообщество, где люди, пармастера и пространства соединяются вокруг здоровья, уважения и продуманного формата отдыха.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -80,50 +78,42 @@ const Index = () => {
       <section id="about" className="py-20 md:py-32 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center space-y-6 mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold">Что такое SPARCOM</h2>
-              <p className="text-xl text-muted-foreground">
-                Отстройка от «обычных бань» и случайных ивентов
+            <div className="space-y-8 mb-16">
+              <h2 className="text-4xl md:text-5xl font-semibold">Что такое SPARCOM</h2>
+              <p className="text-xl md:text-2xl text-foreground leading-relaxed">
+                SPARCOM — это не поток гостей и не стихийные выезды.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Мы создаём <strong className="text-foreground">организованную систему банных встреч</strong>, где:
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="p-10 rounded-xl border-0 bg-card hover:shadow-xl transition-all duration-200 group">
-                <div className="w-16 h-16 bg-accent/15 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent/25 transition-all">
-                  <Icon name="Users" className="text-accent" size={28} />
-                </div>
-                <h3 className="text-2xl font-semibold mb-4">Не поток</h3>
-                <p className="text-muted-foreground leading-relaxed text-base">
-                  Ограниченное количество подготовленных гостей. Качество важнее количества.
-                </p>
-              </Card>
-
-              <Card className="p-10 rounded-xl border-0 bg-card hover:shadow-xl transition-all duration-200 group">
-                <div className="w-16 h-16 bg-accent/15 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent/25 transition-all">
-                  <Icon name="Shield" className="text-accent" size={28} />
-                </div>
-                <h3 className="text-2xl font-semibold mb-4">Не аренда</h3>
-                <p className="text-muted-foreground leading-relaxed text-base">
-                  Организованная встреча с единой точкой ответственности, а не «сам по себе».
-                </p>
-              </Card>
-
-              <Card className="p-10 rounded-xl border-0 bg-card hover:shadow-xl transition-all duration-200 group">
-                <div className="w-16 h-16 bg-accent/15 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent/25 transition-all">
-                  <Icon name="Heart" className="text-accent" size={28} />
-                </div>
-                <h3 className="text-2xl font-semibold mb-4">Не случайность</h3>
-                <p className="text-muted-foreground leading-relaxed text-base">
-                  Культурное сообщество людей, разделяющих ценности уважения и осознанности.
-                </p>
-              </Card>
+            <div className="space-y-6">
+              <ul className="space-y-4 text-lg text-muted-foreground">
+                <li className="flex items-start gap-3">
+                  <Icon name="Check" className="text-accent mt-1 flex-shrink-0" size={22} />
+                  <span>группа формируется заранее</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Icon name="Check" className="text-accent mt-1 flex-shrink-0" size={22} />
+                  <span>формат согласован с баней и мастером</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Icon name="Check" className="text-accent mt-1 flex-shrink-0" size={22} />
+                  <span>правила и границы понятны всем</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Icon name="Check" className="text-accent mt-1 flex-shrink-0" size={22} />
+                  <span>ответственность лежит на одном организаторе</span>
+                </li>
+              </ul>
             </div>
 
-            <div className="mt-20 p-12 md:p-16 bg-accent/10 rounded-2xl">
-              <blockquote className="text-3xl md:text-4xl font-semibold text-center leading-relaxed text-foreground">
-                Мы берём на себя организацию, правила и людей — 
-                <span className="text-accent"> чтобы баня оставалась баней.</span>
-              </blockquote>
+            <div className="mt-16 p-10 md:p-12 bg-accent/5 rounded-2xl border-l-4 border-accent">
+              <p className="text-xl md:text-2xl text-foreground leading-relaxed">
+                Мы берём на себя коммуникацию, записи и процесс,<br />
+                чтобы баня оставалась пространством отдыха и восстановления.
+              </p>
             </div>
           </div>
         </div>
@@ -133,11 +123,8 @@ const Index = () => {
       <section id="meetings" className="py-20 md:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
-            <div className="text-center space-y-6 mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold">Как проходят встречи</h2>
-              <p className="text-xl text-muted-foreground">
-                Предсказуемость, структура, уважение
-              </p>
+            <div className="space-y-6 mb-16">
+              <h2 className="text-4xl md:text-5xl font-semibold">Как проходят встречи</h2>
             </div>
 
             <div className="space-y-6">
@@ -146,25 +133,25 @@ const Index = () => {
                   number: "01",
                   icon: "UserCheck",
                   title: "Подготовленная группа",
-                  description: "Каждый гость проходит знакомство с форматом и правилами. Мы знаем, кто приходит."
+                  description: "Во встречах участвуют люди, которые понимают формат бани и приходят осознанно — не «потусить»."
                 },
                 {
                   number: "02",
                   icon: "Home",
-                  title: "Качественное пространство",
-                  description: "Аренда проверенных банных комплексов в складчину. Комфорт и безопасность гарантированы."
+                  title: "Аренда бани в складчину",
+                  description: "Стоимость аренды делится между участниками. Оплата собирается заранее, формат прозрачен и понятен."
                 },
                 {
                   number: "03",
                   icon: "Compass",
                   title: "Организатор SPARCOM",
-                  description: "Единая точка ответственности за процесс, атмосферу и соблюдение правил."
+                  description: "На каждой встрече есть представитель клуба — единая точка ответственности за людей, процесс и атмосферу."
                 },
                 {
                   number: "04",
                   icon: "Sparkles",
-                  title: "Дополнительные практики",
-                  description: "Парение, медитации, дыхательные практики — по желанию, без навязывания."
+                  title: "Дополнительные практики — по желанию",
+                  description: "Коллективные и индивидуальные парения, авторские ритуалы и форматы. Без навязывания и давления — участие всегда добровольное."
                 }
               ].map((step, index) => (
                 <Card 
@@ -196,11 +183,8 @@ const Index = () => {
       <section id="community" className="py-20 md:py-32 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center space-y-6 mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold">Кто с нами</h2>
-              <p className="text-xl text-muted-foreground">
-                Сообщество единомышленников и профессионалов
-              </p>
+            <div className="space-y-6 mb-16">
+              <h2 className="text-4xl md:text-5xl font-semibold">Кто приходит в SPARCOM</h2>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
@@ -212,13 +196,16 @@ const Index = () => {
                     </div>
                     <h3 className="text-2xl font-semibold">Гости SPARCOM</h3>
                   </div>
+                  <div className="space-y-4">
+                    <p className="text-base text-muted-foreground leading-relaxed">Люди, которые:</p>
+                  </div>
                   <ul className="space-y-4">
                     {[
-                      "Осознанные взрослые 30-55 лет",
-                      "Ценят качество и безопасность",
-                      "Уважают личные границы",
-                      "Не ищут случайные тусовки",
-                      "Готовы следовать правилам"
+                      "ценят качество и тишину",
+                      "уважают личные границы",
+                      "не употребляют алкоголь",
+                      "понимают ритуальный и оздоровительный формат бани",
+                      "готовы платить за атмосферу и порядок"
                     ].map((item, index) => (
                       <li key={index} className="flex items-start gap-3">
                         <Icon name="Check" className="text-accent mt-1 flex-shrink-0" size={20} />
@@ -237,13 +224,16 @@ const Index = () => {
                     </div>
                     <h3 className="text-2xl font-semibold">Пармастера и бани</h3>
                   </div>
+                  <div className="space-y-4">
+                    <p className="text-base text-muted-foreground leading-relaxed">Наши партнёры получают:</p>
+                  </div>
                   <ul className="space-y-4">
                     {[
-                      "Партнёры с опытом и репутацией",
-                      "Проверенные банные пространства",
-                      "Единые стандарты качества",
-                      "Предсказуемый сервис",
-                      "Долгосрочное сотрудничество"
+                      "подготовленную аудиторию",
+                      "предсказуемые группы",
+                      "уважительное отношение к пространству и мастерству",
+                      "минимальные риски отмен",
+                      "долгосрочное сотрудничество"
                     ].map((item, index) => (
                       <li key={index} className="flex items-start gap-3">
                         <Icon name="Check" className="text-accent mt-1 flex-shrink-0" size={20} />
@@ -255,9 +245,9 @@ const Index = () => {
               </Card>
             </div>
 
-            <div className="mt-12 text-center">
-              <p className="text-lg text-muted-foreground italic">
-                Уважение, повторяемость, предсказуемость — отсутствие хаоса
+            <div className="mt-16 p-10 md:p-12 bg-accent/5 rounded-2xl border-l-4 border-accent">
+              <p className="text-xl md:text-2xl text-foreground leading-relaxed">
+                Это не массовый поток, а сообщество.
               </p>
             </div>
           </div>
@@ -268,56 +258,38 @@ const Index = () => {
       <section id="rules" className="py-20 md:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center space-y-6 mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold">Правила и безопасность</h2>
-              <p className="text-xl text-muted-foreground">
-                Четкие границы создают свободу
+            <div className="space-y-6 mb-16">
+              <h2 className="text-4xl md:text-5xl font-semibold">Правила и безопасность</h2>
+              <p className="text-lg text-muted-foreground">
+                Во всех форматах SPARCOM действуют единые правила:
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-6 mb-16">
+            <ul className="space-y-5 mb-16">
               {[
-                {
-                  icon: "Ban",
-                  title: "Без алкоголя",
-                  description: "Баня — это про здоровье и осознанность, не про опьянение"
-                },
-                {
-                  icon: "Heart",
-                  title: "Уважение границ",
-                  description: "Личное пространство каждого гостя священно"
-                },
-                {
-                  icon: "Camera",
-                  title: "Согласие на медиа",
-                  description: "Фото и видео только с разрешения всех участников"
-                },
-                {
-                  icon: "ShieldCheck",
-                  title: "Право отказаться",
-                  description: "Никто не обязан участвовать в процедурах или практиках"
-                }
+                "строго без алкоголя",
+                "уважение личных границ",
+                "фото и видео — только с согласия",
+                "участие добровольное",
+                "можно выйти из процесса в любой момент"
               ].map((rule, index) => (
-                <Card key={index} className="p-8 rounded-xl border-0 bg-card hover:shadow-xl transition-all duration-200">
-                  <div className="flex items-start gap-5">
-                    <div className="w-14 h-14 bg-accent/15 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Icon name={rule.icon as any} className="text-accent" size={26} />
-                    </div>
-                    <div className="space-y-2">
-                      <h3 className="text-xl font-semibold">{rule.title}</h3>
-                      <p className="text-base text-muted-foreground leading-relaxed">{rule.description}</p>
-                    </div>
-                  </div>
-                </Card>
+                <li key={index} className="flex items-start gap-3">
+                  <Icon name="Check" className="text-accent mt-1 flex-shrink-0" size={22} />
+                  <span className="text-lg text-muted-foreground">{rule}</span>
+                </li>
               ))}
+            </ul>
+            <div className="mb-16 p-10 bg-accent/5 rounded-2xl border-l-4 border-accent">
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Организатор имеет право отказать участнику и отвечает за атмосферу и безопасность встречи.
+              </p>
             </div>
 
-            <div className="p-12 md:p-16 bg-accent/10 rounded-2xl">
-              <blockquote className="text-3xl md:text-4xl font-semibold text-center leading-relaxed text-foreground">
-                Правила создают свободу, 
-                <span className="text-accent"> а не ограничения.</span>
-              </blockquote>
-            </div>
+            <blockquote className="p-12 md:p-16 bg-accent/10 rounded-2xl text-center">
+              <p className="text-3xl md:text-4xl font-semibold leading-relaxed text-foreground">
+                Правила создают свободу, <span className="text-accent">а не ограничения.</span>
+              </p>
+            </blockquote>
           </div>
         </div>
       </section>
@@ -325,21 +297,22 @@ const Index = () => {
       {/* Final CTA */}
       <section id="contact" className="py-24 md:py-32 bg-accent text-accent-foreground">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-10">
-            <h2 className="text-4xl md:text-5xl font-semibold leading-tight">
-              Готовы к культурному опыту?
-            </h2>
-            <p className="text-xl md:text-2xl font-light opacity-95">
-              Присоединяйтесь к сообществу осознанных гостей SPARCOM
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <div className="max-w-3xl mx-auto space-y-10">
+            <div className="space-y-6">
+              <p className="text-2xl md:text-3xl font-light leading-relaxed text-accent-foreground">
+                SPARCOM — это не про количество.<br />
+                Это про культуру, сообщество и систему.
+              </p>
+              <p className="text-xl md:text-2xl font-light opacity-90">
+                Если вам близок такой подход — добро пожаловать.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 pt-6">
               <Button size="lg" className="text-base font-semibold rounded-full px-8 bg-background text-foreground hover:bg-background/90">
                 Посмотреть ближайшие встречи
-                <Icon name="Calendar" className="ml-2" size={20} />
               </Button>
               <Button size="lg" variant="outline" className="text-base font-semibold rounded-full px-8 border-2 border-accent-foreground/30 hover:bg-accent-foreground/10">
                 Познакомиться со SPARCOM
-                <Icon name="MessageCircle" className="ml-2" size={20} />
               </Button>
             </div>
           </div>
