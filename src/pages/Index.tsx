@@ -2,9 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { useState } from "react";
+import AuthModal from "@/components/auth/AuthModal";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState<string>("");
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('register');
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -26,7 +29,13 @@ const Index = () => {
               <button onClick={() => scrollToSection("rules")} className="text-sm font-medium hover:text-accent transition-all duration-200">Правила</button>
               <button onClick={() => scrollToSection("contact")} className="text-sm font-medium hover:text-accent transition-all duration-200">Контакты</button>
             </div>
-            <Button size="sm" className="hidden md:flex rounded-full px-6">Вступить</Button>
+            <Button 
+              size="sm" 
+              className="hidden md:flex rounded-full px-6"
+              onClick={() => { setAuthMode('register'); setAuthModalOpen(true); }}
+            >
+              Вступить
+            </Button>
           </div>
         </div>
       </nav>
@@ -61,7 +70,11 @@ const Index = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button size="lg" className="text-base font-semibold rounded-full px-8 bg-accent hover:bg-accent/90" onClick={() => scrollToSection("meetings")}>
+                <Button 
+                  size="lg" 
+                  className="text-base font-semibold rounded-full px-8 bg-accent hover:bg-accent/90" 
+                  onClick={() => { setAuthMode('register'); setAuthModalOpen(true); }}
+                >
                   Посмотреть встречи
                   <Icon name="ArrowRight" className="ml-2" size={20} />
                 </Button>
@@ -308,10 +321,19 @@ const Index = () => {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 pt-6">
-              <Button size="lg" className="text-base font-semibold rounded-full px-8 bg-background text-foreground hover:bg-background/90">
+              <Button 
+                size="lg" 
+                className="text-base font-semibold rounded-full px-8 bg-background text-foreground hover:bg-background/90"
+                onClick={() => { setAuthMode('register'); setAuthModalOpen(true); }}
+              >
                 Посмотреть ближайшие встречи
               </Button>
-              <Button size="lg" variant="outline" className="text-base font-semibold rounded-full px-8 border-2 border-accent-foreground/30 hover:bg-accent-foreground/10">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="text-base font-semibold rounded-full px-8 border-2 border-accent-foreground/30 hover:bg-accent-foreground/10"
+                onClick={() => scrollToSection('about')}
+              >
                 Познакомиться со SPARCOM
               </Button>
             </div>
@@ -333,6 +355,12 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      <AuthModal 
+        isOpen={authModalOpen} 
+        onClose={() => setAuthModalOpen(false)} 
+        defaultMode={authMode}
+      />
     </div>
   );
 };

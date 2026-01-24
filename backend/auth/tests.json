@@ -1,0 +1,45 @@
+{
+  "tests": [
+    {
+      "name": "Регистрация нового пользователя",
+      "method": "POST",
+      "path": "/?action=register",
+      "body": {
+        "username": "testuser",
+        "email": "test@example.com",
+        "password": "securepassword123",
+        "role": "guest",
+        "phone": "+79001234567"
+      },
+      "expectedStatus": 201,
+      "expectedBody": {
+        "message": "string",
+        "user_id": "number",
+        "username": "string",
+        "role": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Вход с правильными данными",
+      "method": "POST",
+      "path": "/?action=login",
+      "body": {
+        "email": "test@example.com",
+        "password": "securepassword123"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "message": "string",
+        "token": "string",
+        "user": {
+          "id": "number",
+          "username": "string",
+          "email": "string",
+          "role": "string"
+        }
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
