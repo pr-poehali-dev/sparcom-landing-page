@@ -120,7 +120,7 @@ def handle_register(event: dict) -> dict:
         user_id = cur.fetchone()['id']
         
         cur.execute(
-            "INSERT INTO user_profiles (user_id, role, phone) VALUES (%s, %s, %s)",
+            "INSERT INTO user_profiles (user_id, user_role, phone) VALUES (%s, %s, %s)",
             (user_id, role, phone)
         )
         
@@ -164,7 +164,7 @@ def handle_login(event: dict) -> dict:
         cur.execute(
             """
             SELECT u.id, u.username, u.email, u.password_hash, u.is_active,
-                   p.role, p.phone, p.is_verified
+                   p.user_role, p.phone, p.is_verified
             FROM users u
             LEFT JOIN user_profiles p ON u.id = p.user_id
             WHERE u.email = %s
@@ -210,7 +210,7 @@ def handle_login(event: dict) -> dict:
                     'id': user['id'],
                     'username': user['username'],
                     'email': user['email'],
-                    'role': user['role'],
+                    'role': user['user_role'],
                     'is_verified': user['is_verified']
                 }
             })
@@ -268,7 +268,7 @@ def handle_get_user(event: dict) -> dict:
         cur.execute(
             """
             SELECT u.id, u.username, u.email, u.first_name, u.last_name,
-                   p.role, p.phone, p.bio, p.is_verified
+                   p.user_role, p.phone, p.bio, p.is_verified
             FROM user_sessions s
             JOIN users u ON s.user_id = u.id
             LEFT JOIN user_profiles p ON u.id = p.user_id

@@ -1,3 +1,5 @@
 {
+  "roles": "https://functions.poehali.dev/1b896bdf-9cd0-426f-b064-6e71baf86194",
+  "events": "https://functions.poehali.dev/800287f6-75ba-4988-afab-d1a969efe552",
   "auth": "https://functions.poehali.dev/ca41cd2e-d6e4-4b60-bdc9-7c9613cca01e"
 }

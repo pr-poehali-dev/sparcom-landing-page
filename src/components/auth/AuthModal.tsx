@@ -7,16 +7,23 @@ import RegisterForm from './RegisterForm';
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  defaultMode?: 'login' | 'register';
+  mode?: 'login' | 'register';
+  setMode?: (mode: 'login' | 'register') => void;
+  onSuccess?: () => void;
 }
 
-export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: AuthModalProps) {
-  const [mode, setMode] = useState<'login' | 'register'>(defaultMode);
+export default function AuthModal({ isOpen, onClose, mode: externalMode, setMode: externalSetMode, onSuccess }: AuthModalProps) {
+  const [internalMode, setInternalMode] = useState<'login' | 'register'>('login');
+  
+  const mode = externalMode !== undefined ? externalMode : internalMode;
+  const setMode = externalSetMode !== undefined ? externalSetMode : setInternalMode;
 
   if (!isOpen) return null;
 
   const handleSuccess = () => {
-    if (mode === 'register') {
+    if (onSuccess) {
+      onSuccess();
+    } else if (mode === 'register') {
       setMode('login');
     } else {
       window.location.reload();
