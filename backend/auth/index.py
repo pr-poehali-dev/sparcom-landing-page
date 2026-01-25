@@ -82,7 +82,7 @@ def handle_register(event: dict) -> dict:
     username = data.get('username', '').strip()
     email = data.get('email', '').strip().lower()
     password = data.get('password', '')
-    role = data.get('role', 'guest')
+    role = 'participant'
     phone = data.get('phone', '')
     
     if not username or not email or not password:
@@ -90,13 +90,6 @@ def handle_register(event: dict) -> dict:
             'statusCode': 400,
             'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
             'body': json.dumps({'error': 'Username, email и password обязательны'})
-        }
-    
-    if role not in ['guest', 'organizer', 'master']:
-        return {
-            'statusCode': 400,
-            'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-            'body': json.dumps({'error': 'Недопустимая роль'})
         }
     
     conn = get_db_connection()

@@ -13,7 +13,7 @@ export default function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFor
     username: '',
     email: '',
     password: '',
-    role: 'guest',
+    role: 'participant',
     phone: ''
   });
   const [error, setError] = useState('');
@@ -78,19 +78,6 @@ export default function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFor
           required
           minLength={8}
         />
-      </div>
-
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Я хочу присоединиться как:</label>
-        <select
-          value={formData.role}
-          onChange={(e) => setFormData({ ...formData, role: e.target.value as any })}
-          className="w-full px-3 py-2 border rounded-md"
-        >
-          <option value="guest">Гость</option>
-          <option value="organizer">Организатор</option>
-          <option value="master">Мастер</option>
-        </select>
       </div>
 
       {error && (

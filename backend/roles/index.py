@@ -47,7 +47,7 @@ def handler(event: dict, context) -> dict:
             motivation = body.get('motivation')
             portfolio_url = body.get('portfolio_url')
             
-            if requested_role not in ['organizer', 'master']:
+            if requested_role not in ['organizer', 'master', 'bathowner']:
                 return {
                     'statusCode': 400,
                     'headers': headers,

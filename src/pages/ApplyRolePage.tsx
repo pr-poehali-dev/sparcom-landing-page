@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Icon from '@/components/ui/icon';
 
 export default function ApplyRolePage() {
-  const [requestedRole, setRequestedRole] = useState<'organizer' | 'master'>('organizer');
+  const [requestedRole, setRequestedRole] = useState<'organizer' | 'master' | 'bathowner'>('organizer');
   const [motivation, setMotivation] = useState('');
   const [portfolioUrl, setPortfolioUrl] = useState('');
   const [loading, setLoading] = useState(false);
@@ -76,12 +76,12 @@ export default function ApplyRolePage() {
           <CardHeader>
             <CardTitle>Выберите роль</CardTitle>
             <CardDescription>
-              Организатор или пармастер — каждый вносит свой вклад в сообщество
+              Организатор, пармастер или владелец бани — каждый вносит свой вклад в сообщество
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <RadioGroup value={requestedRole} onValueChange={(val) => setRequestedRole(val as 'organizer' | 'master')}>
+              <RadioGroup value={requestedRole} onValueChange={(val) => setRequestedRole(val as 'organizer' | 'master' | 'bathowner')}>
                 <div className="flex items-start space-x-3 p-4 border rounded-lg hover:bg-muted/50 transition-colors">
                   <RadioGroupItem value="organizer" id="organizer" className="mt-1" />
                   <div className="flex-1">
@@ -103,6 +103,18 @@ export default function ApplyRolePage() {
                     </Label>
                     <p className="text-sm text-muted-foreground mt-1">
                       Проводите банные процедуры, делитесь опытом и знаниями о культуре парения
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3 p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+                  <RadioGroupItem value="bathowner" id="bathowner" className="mt-1" />
+                  <div className="flex-1">
+                    <Label htmlFor="bathowner" className="text-base font-semibold cursor-pointer">
+                      Владелец бани
+                    </Label>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Предоставляйте своё пространство для банных встреч и управляйте бронированиями
                     </p>
                   </div>
                 </div>

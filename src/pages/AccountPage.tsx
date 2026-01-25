@@ -118,10 +118,11 @@ export default function AccountPage() {
 
               <div>
                 <Label>Роль</Label>
-                <div className="mt-1 px-3 py-2 bg-muted rounded-md font-medium capitalize">
-                  {user.profile?.role === 'guest' && 'Гость'}
+                <div className="mt-1 px-3 py-2 bg-muted rounded-md font-medium">
+                  {user.profile?.role === 'participant' && 'Участник (блогер)'}
                   {user.profile?.role === 'organizer' && 'Организатор'}
                   {user.profile?.role === 'master' && 'Пармастер'}
+                  {user.profile?.role === 'bathowner' && 'Владелец бани'}
                 </div>
               </div>
 
@@ -175,15 +176,20 @@ export default function AccountPage() {
               </CardContent>
             </Card>
 
-            {user.profile?.role === 'guest' && (
+            {user.profile?.role === 'participant' && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Стать организатором</CardTitle>
-                  <CardDescription>Создавайте свои события</CardDescription>
+                  <CardTitle>Расширьте возможности</CardTitle>
+                  <CardDescription>Подайте заявку на новую роль</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Организаторы могут создавать банные встречи и приглашать участников
+                <CardContent className="space-y-3">
+                  <div className="p-3 bg-muted/50 rounded-md text-sm">
+                    <p className="text-muted-foreground">
+                      🎓 <strong>Участник</strong> — вы можете писать в блог и бронировать встречи
+                    </p>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Станьте <strong>организатором</strong>, <strong>пармастером</strong> или <strong>владельцем бани</strong>
                   </p>
                   <Button 
                     onClick={() => navigate('/apply-role')}
