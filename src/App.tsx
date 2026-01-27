@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import AccountPage from "./pages/AccountPage";
 import ApplyRolePage from "./pages/ApplyRolePage";
 import CatalogPage from "./pages/CatalogPage";
+import TelegramCallbackPage from "./pages/TelegramCallbackPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/catalog" element={<CatalogPage />} />
             <Route path="/account" element={<AccountPage />} />
             <Route path="/apply-role" element={<ApplyRolePage />} />
+            <Route path="/auth/telegram/callback" element={<TelegramCallbackPage />} />
             <Route path="/about" element={<HomePage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

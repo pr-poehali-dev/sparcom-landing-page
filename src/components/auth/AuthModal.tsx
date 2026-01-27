@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import { useTelegramAuth } from '@/components/extensions/telegram-bot/useTelegramAuthSimple';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -14,6 +16,7 @@ interface AuthModalProps {
 
 export default function AuthModal({ isOpen, onClose, mode: externalMode, setMode: externalSetMode, onSuccess }: AuthModalProps) {
   const [internalMode, setInternalMode] = useState<'login' | 'register'>('login');
+  const { openTelegramBot } = useTelegramAuth();
   
   const mode = externalMode !== undefined ? externalMode : internalMode;
   const setMode = externalSetMode !== undefined ? externalSetMode : setInternalMode;
@@ -51,6 +54,25 @@ export default function AuthModal({ isOpen, onClose, mode: externalMode, setMode
                 ? 'Добро пожаловать обратно' 
                 : 'Присоединяйтесь к сообществу'}
             </p>
+          </div>
+
+          <Button
+            onClick={openTelegramBot}
+            variant="outline"
+            size="lg"
+            className="w-full"
+          >
+            <Icon name="Send" className="mr-2" size={20} />
+            Войти через Telegram
+          </Button>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">или</span>
+            </div>
           </div>
 
           {mode === 'login' ? (

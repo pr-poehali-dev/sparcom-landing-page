@@ -120,19 +120,20 @@ def find_user_by_telegram_id(cursor, telegram_id: str) -> Optional[dict]:
     """Find user by Telegram ID."""
     schema = get_schema()
     cursor.execute(f"""
-        SELECT id, email, name, avatar_url, telegram_id
+        SELECT id, email, first_name, last_name, avatar_url, telegram_id
         FROM {schema}users
         WHERE telegram_id = %s
     """, (telegram_id,))
 
     row = cursor.fetchone()
     if row:
+        name = f"{row[2] or ''} {row[3] or ''}".strip()
         return {
             "id": row[0],
             "email": row[1],
-            "name": row[2],
-            "avatar_url": row[3],
-            "telegram_id": row[4],
+            "name": name,
+            "avatar_url": row[4],
+            "telegram_id": row[5],
         }
     return None
 
@@ -163,28 +164,29 @@ def create_or_update_user(
         # Update existing user
         cursor.execute(f"""
             UPDATE {schema}users
-            SET name = COALESCE(%s, name),
+            SET first_name = COALESCE(%s, first_name),
                 avatar_url = COALESCE(%s, avatar_url),
-                last_login_at = NOW(),
-                updated_at = NOW()
+                last_login_at = NOW()
             WHERE telegram_id = %s
-            RETURNING id, email, name, avatar_url, telegram_id
-        """, (display_name, photo_url, telegram_id))
+            RETURNING id, email, first_name, last_name, avatar_url, telegram_id
+        """, (first_name, photo_url, telegram_id))
     else:
-        # Create new user
+        # Create new user with username
+        username_val = username or f"tg_{telegram_id}"
         cursor.execute(f"""
-            INSERT INTO {schema}users (telegram_id, name, avatar_url, email_verified, password_hash, created_at, updated_at, last_login_at)
-            VALUES (%s, %s, %s, TRUE, '', NOW(), NOW(), NOW())
-            RETURNING id, email, name, avatar_url, telegram_id
-        """, (telegram_id, display_name, photo_url))
+            INSERT INTO {schema}users (telegram_id, username, first_name, last_name, avatar_url, email_verified, password_hash, last_login_at)
+            VALUES (%s, %s, %s, %s, %s, TRUE, '', NOW())
+            RETURNING id, email, first_name, last_name, avatar_url, telegram_id
+        """, (telegram_id, username_val, first_name, last_name, photo_url))
 
     row = cursor.fetchone()
+    name = f"{row[2] or ''} {row[3] or ''}".strip()
     return {
         "id": row[0],
         "email": row[1],
-        "name": row[2],
-        "avatar_url": row[3],
-        "telegram_id": row[4],
+        "name": name,
+        "avatar_url": row[4],
+        "telegram_id": row[5],
     }
 
 
