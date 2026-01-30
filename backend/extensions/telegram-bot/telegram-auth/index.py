@@ -24,7 +24,9 @@ import jwt
 # =============================================================================
 
 def get_db_connection():
-    return psycopg2.connect(os.environ["DATABASE_URL"])
+    conn = psycopg2.connect(os.environ["DATABASE_URL"])
+    conn.autocommit = True
+    return conn
 
 
 def get_schema() -> str:
@@ -74,8 +76,8 @@ def get_auth_token(cursor, token: str) -> Optional[dict]:
         SELECT telegram_id, telegram_username, telegram_first_name,
                telegram_last_name, telegram_photo_url, expires_at, used
         FROM {schema}telegram_auth_tokens
-        WHERE token_hash = %s
-    """, (token_hash,))
+        WHERE token_hash = '{token_hash}'
+    """)
 
     row = cursor.fetchone()
     if not row:
@@ -100,9 +102,9 @@ def mark_token_used(cursor, token: str) -> bool:
     cursor.execute(f"""
         UPDATE {schema}telegram_auth_tokens
         SET used = TRUE
-        WHERE token_hash = %s AND used = FALSE
+        WHERE token_hash = '{token_hash}' AND used = FALSE
         RETURNING id
-    """, (token_hash,))
+    """)
 
     return cursor.fetchone() is not None
 
@@ -122,8 +124,8 @@ def find_user_by_telegram_id(cursor, telegram_id: str) -> Optional[dict]:
     cursor.execute(f"""
         SELECT id, email, first_name, last_name, avatar_url, telegram_id
         FROM {schema}users
-        WHERE telegram_id = %s
-    """, (telegram_id,))
+        WHERE telegram_id = '{telegram_id}'
+    """)
 
     row = cursor.fetchone()
     if row:
@@ -162,22 +164,27 @@ def create_or_update_user(
 
     if existing:
         # Update existing user
+        first_name_str = f"'{first_name}'" if first_name else "first_name"
+        photo_url_str = f"'{photo_url}'" if photo_url else "avatar_url"
         cursor.execute(f"""
             UPDATE {schema}users
-            SET first_name = COALESCE(%s, first_name),
-                avatar_url = COALESCE(%s, avatar_url),
+            SET first_name = COALESCE({first_name_str}, first_name),
+                avatar_url = COALESCE({photo_url_str}, avatar_url),
                 last_login_at = NOW()
-            WHERE telegram_id = %s
+            WHERE telegram_id = '{telegram_id}'
             RETURNING id, email, first_name, last_name, avatar_url, telegram_id
-        """, (first_name, photo_url, telegram_id))
+        """)
     else:
         # Create new user with username
         username_val = username or f"tg_{telegram_id}"
+        first_name_str = f"'{first_name}'" if first_name else "NULL"
+        last_name_str = f"'{last_name}'" if last_name else "NULL"
+        photo_url_str = f"'{photo_url}'" if photo_url else "NULL"
         cursor.execute(f"""
             INSERT INTO {schema}users (telegram_id, username, first_name, last_name, avatar_url, email_verified, password_hash, last_login_at)
-            VALUES (%s, %s, %s, %s, %s, TRUE, '', NOW())
+            VALUES ('{telegram_id}', '{username_val}', {first_name_str}, {last_name_str}, {photo_url_str}, TRUE, '', NOW())
             RETURNING id, email, first_name, last_name, avatar_url, telegram_id
-        """, (telegram_id, username_val, first_name, last_name, photo_url))
+        """)
 
     row = cursor.fetchone()
     name = f"{row[2] or ''} {row[3] or ''}".strip()
@@ -193,10 +200,11 @@ def create_or_update_user(
 def save_refresh_token(cursor, user_id: int, token_hash: str, expires_at: datetime) -> None:
     """Save hashed refresh token to DB."""
     schema = get_schema()
+    expires_str = expires_at.isoformat()
     cursor.execute(f"""
         INSERT INTO {schema}refresh_tokens (user_id, token_hash, expires_at)
-        VALUES (%s, %s, %s)
-    """, (user_id, token_hash, expires_at))
+        VALUES ({user_id}, '{token_hash}', '{expires_str}')
+    """)
 
 
 def find_refresh_token(cursor, token_hash: str) -> Optional[dict]:
@@ -205,8 +213,8 @@ def find_refresh_token(cursor, token_hash: str) -> Optional[dict]:
     cursor.execute(f"""
         SELECT user_id, expires_at
         FROM {schema}refresh_tokens
-        WHERE token_hash = %s AND expires_at > NOW()
-    """, (token_hash,))
+        WHERE token_hash = '{token_hash}' AND expires_at > NOW()
+    """)
 
     row = cursor.fetchone()
     if row:
@@ -217,7 +225,7 @@ def find_refresh_token(cursor, token_hash: str) -> Optional[dict]:
 def delete_refresh_token(cursor, token_hash: str) -> None:
     """Delete refresh token."""
     schema = get_schema()
-    cursor.execute(f"DELETE FROM {schema}refresh_tokens WHERE token_hash = %s", (token_hash,))
+    cursor.execute(f"DELETE FROM {schema}refresh_tokens WHERE token_hash = '{token_hash}'")
 
 
 def get_user_by_id(cursor, user_id: int) -> Optional[dict]:
@@ -225,8 +233,8 @@ def get_user_by_id(cursor, user_id: int) -> Optional[dict]:
     schema = get_schema()
     cursor.execute(f"""
         SELECT id, email, name, avatar_url, telegram_id
-        FROM {schema}users WHERE id = %s
-    """, (user_id,))
+        FROM {schema}users WHERE id = {user_id}
+    """)
 
     row = cursor.fetchone()
     if row:

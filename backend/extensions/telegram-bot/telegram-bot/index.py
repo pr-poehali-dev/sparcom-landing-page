@@ -89,25 +89,23 @@ def save_auth_token(
     token = str(uuid.uuid4())
     token_hash = hashlib.sha256(token.encode()).hexdigest()
     schema = get_schema()
+    
+    # Format data for SQL string
+    username_str = f"'{username}'" if username else "NULL"
+    first_name_str = f"'{first_name}'" if first_name else "NULL"
+    last_name_str = f"'{last_name}'" if last_name else "NULL"
+    expires_at = (datetime.now(timezone.utc) + timedelta(minutes=5)).isoformat()
 
     conn = psycopg2.connect(os.environ["DATABASE_URL"])
+    conn.autocommit = True
     try:
         cursor = conn.cursor()
         cursor.execute(f"""
             INSERT INTO {schema}telegram_auth_tokens
             (token_hash, telegram_id, telegram_username, telegram_first_name,
              telegram_last_name, telegram_photo_url, expires_at)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """, (
-            token_hash,
-            telegram_id,
-            username,
-            first_name,
-            last_name,
-            None,
-            datetime.now(timezone.utc) + timedelta(minutes=5)
-        ))
-        conn.commit()
+            VALUES ('{token_hash}', '{telegram_id}', {username_str}, {first_name_str}, {last_name_str}, NULL, '{expires_at}')
+        """)
     finally:
         conn.close()
 
