@@ -272,6 +272,7 @@ def cors_response(status: int, body: dict) -> dict:
         "statusCode": status,
         "headers": {**get_cors_headers(), "Content-Type": "application/json"},
         "body": json.dumps(body),
+        "isBase64Encoded": False,
     }
 
 
@@ -280,6 +281,7 @@ def options_response() -> dict:
         "statusCode": 204,
         "headers": get_cors_headers(),
         "body": "",
+        "isBase64Encoded": False,
     }
 
 
@@ -440,16 +442,16 @@ def handler(event, context):
         else:
             response = cors_response(400, {"error": f"Unknown action: {action}"})
 
-        conn.commit()
         return response
 
     except ValueError as e:
+        print(f"ValueError: {e}")
         return cors_response(500, {"error": "Server configuration error"})
     except Exception as e:
-        if conn:
-            conn.rollback()
-        print(f"Error: {e}")
-        return cors_response(500, {"error": "Internal server error"})
+        print(f"Error in handler: {e}")
+        import traceback
+        traceback.print_exc()
+        return cors_response(500, {"error": "Internal server error", "details": str(e)})
     finally:
         if conn:
             conn.close()
